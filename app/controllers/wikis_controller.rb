@@ -10,6 +10,17 @@ class WikisController < ApplicationController
   def new
   end
 
+  def create
+
+  end
+
   def edit
   end
+
+  private
+
+  def post_params
+    params.require(:wiki).permit(:title, :body)
+  end
+   
 end
