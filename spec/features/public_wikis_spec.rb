@@ -59,7 +59,10 @@ feature 'public and non public wikis' do
     fill_in 'Password', with: "helloworld"
     click_button 'Sign in'
     click_link'My Wikis' 
-    click_link 'Create Wiki'
+    fill_in 'Title', with: "Testing New Wiki"
+    fill_in 'Body', with: "This is my first wiki created through form. It will be public"
+    check 'Public'
+    click_button 'Create Wiki'
 
   end
 end

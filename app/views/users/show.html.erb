@@ -1,3 +1,33 @@
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_for @new_wiki do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Create New Wiki</h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+          <%= f.label :title %>
+          <%= f.text_field :title%>
+        </div>
+        <div class="form-group">
+          <%= f.label :body %>
+          <%= f.text_area :body, rows: 8, cols: 42 %>
+        </div>
+        <div class="form-group">
+          <%= f.label :public %>
+          <%= f.check_box :public %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%=f.submit "Create Wiki", class: "btn btn-primary" %>
+      </div>
+        <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <h1>My Wikis</h1>
 <div class="row">
   <div class="col-md-8">
@@ -5,18 +35,9 @@
   </div>
   
   <div class="col-md-4">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    </button>
     <h3>Create a new Wiki</h3>
-        <%= form_for @new_wiki do |f| %>
-          <div class="form-group">
-          <%= f.label :title %>
-          <%= f.text_field :title, class: 'panel-title'%>
-        </div>
-        <div class="form-group">
-          <%= f.text_area :body, rows: 8, cols: 42, class: 'panel-body' %>
-        </div>
-        <div class="form-group">
-          <%=f.submit "Save", class: "btn btn-primary" %>
-        </div>
-        <% end %>
   </div><!-- end of col -->
 </div>
+
