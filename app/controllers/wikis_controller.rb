@@ -25,6 +25,19 @@ class WikisController < ApplicationController
   end
 
   def edit
+    @wiki = Wiki.find(params[:id])
+  end
+
+  def update
+    @wiki = current_user.wikis.find(params[:id])
+    @user = User.find(@wiki.user_id)
+    if @wiki.update_attributes(post_params)
+      flash[:notice] = "You have updated a Wiki"
+      redirect_to @user
+    else
+      flash[:error] = "There was an error encountered. Please try again."
+      redirect_to @user
+    end
   end
 
   def destroy

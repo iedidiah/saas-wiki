@@ -59,10 +59,31 @@ feature 'public and non public wikis' do
     fill_in 'Password', with: "helloworld"
     click_button 'Sign in'
     click_link'My Wikis' 
+    click_button 'Create a new Wiki'
     fill_in 'Title', with: "Testing New Wiki"
     fill_in 'Body', with: "This is my first wiki created through form. It will be public"
     check 'Public'
     click_button 'Create Wiki'
-
+    expect(page).to have_content ('Your new Wiki has been created.')
+    expect(page).to have_content ('Testing New Wiki')
+  end
+  scenario 'should be editable' do
+    @u1 = create(:user) do |user|
+      user.wikis.create(attributes_for(:wiki))
+      user.wikis.first.update_attribute(:public, false)
+      user.wikis.first.update_attribute(:title, "Non-public Wiki")
+    end
+    visit'/'
+    expect(page).to have_content('Sign In')
+    click_link "Sign In"
+    expect(page).to have_content('Email')
+    fill_in 'Email', with: @u1.email
+    fill_in 'Password', with: "helloworld"
+    click_button 'Sign in'
+    click_link 'My Wikis' 
+    click_link 'Edit' 
+    check 'Public'
+    click_button 'Update Wiki'
+    expect(page).to have_content('You have updated a Wiki')
   end
 end
