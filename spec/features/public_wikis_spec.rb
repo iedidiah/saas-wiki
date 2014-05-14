@@ -62,7 +62,6 @@ feature 'public and non public wikis' do
     click_button 'Create a new Wiki'
     fill_in 'Title', with: "Testing New Wiki"
     fill_in 'Body', with: "This is my first wiki created through form. It will be public"
-    check 'Public'
     click_button 'Create Wiki'
     expect(page).to have_content ('Your new Wiki has been created.')
     expect(page).to have_content ('Testing New Wiki')
@@ -82,7 +81,7 @@ feature 'public and non public wikis' do
     click_button 'Sign in'
     click_link 'My Wikis' 
     click_link 'Edit' 
-    check 'Public'
+  #  check 'Public'
     click_button 'Update Wiki'
     expect(page).to have_content('You have updated a Wiki')
   end

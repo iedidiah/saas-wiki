@@ -7,7 +7,10 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'faker'
+  gem 'selenium-webdriver'
 end
+# Checkout with credit card
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 # markdown
 gem 'redcarpet'
 # authorization handler

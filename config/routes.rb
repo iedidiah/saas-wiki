@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :wikis
+  resources :charges
   resources :users, only: [:show, :index, :create]
 
   root to: 'welcome#index'

@@ -9,12 +9,14 @@
       <%= f.label :body %>
       <%= f.text_area :body, rows: 8, cols: 42 %>
     </div>
-    
-    <div class="form-group">
-      <%= f.label :public %>
-      <%= f.check_box :public %>
-    </div>
- 
+    <% if current_user.paid %>    
+      <div class="form-group">
+        <%= f.label :public %>
+        <%= f.check_box :public %>
+      </div>
+    <% else %>
+       <%= hidden_field_tag(:paid, false) %> 
+    <% end %>
     <div class="form-group">
       <%=f.submit "Update Wiki", class: "btn btn-primary" %>
     </div>

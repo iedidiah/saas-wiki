@@ -12,6 +12,11 @@
       <li><%= link_to "Saas Home", root_path %></li>
       <li><%= link_to "Wikis", wikis_path %></li>
       <% if current_user %>
+         <% if !current_user.paid %>
+           <li><%= link_to "Private Wikis", new_charge_path %></li>
+         <% end %>
+      <% end %>
+      <% if current_user %>
         <li> <%= link_to "My Wikis", current_user %></li>
       <% end %>
       <div class="pull-right user-info">
