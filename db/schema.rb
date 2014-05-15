@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514144937) do
+ActiveRecord::Schema.define(version: 20140514190618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20140514144937) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.text     "body"
-    t.boolean  "public"
+    t.boolean  "public",     default: true, null: false
   end
 
   add_index "wikis", ["user_id"], name: "index_wikis_on_user_id", using: :btree

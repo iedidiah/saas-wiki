@@ -1,4 +1,6 @@
 <h1>Edit Your Wiki</h1>
+<div class="row">
+  <div class="col-md-8">
   <%= form_for @wiki do |f| %>
     <div class="form-group">
       <%= f.label :title %>
@@ -14,10 +16,13 @@
         <%= f.label :public %>
         <%= f.check_box :public %>
       </div>
-    <% else %>
-       <%= hidden_field_tag(:paid, false) %> 
     <% end %>
     <div class="form-group">
       <%=f.submit "Update Wiki", class: "btn btn-primary" %>
     </div>
   <% end %>
+  </div>
+  <div class="col-md-4">
+    <h3>Add collaborators to this Wiki</h3>
+  </div>
+</div>

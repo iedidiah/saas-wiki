@@ -9,6 +9,8 @@ group :development, :test do
   gem 'faker'
   gem 'selenium-webdriver'
 end
+# Bootstrap autocomplete typing
+gem 'bootstrap-typeahead-rails'
 # Checkout with credit card
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 # markdown
