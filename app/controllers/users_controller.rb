@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @wikis = User.find(params[:id]).wikis.all
+    @wikis = User.find(current_user.id).wikis.all
     @new_wiki = Wiki.new
   end
 

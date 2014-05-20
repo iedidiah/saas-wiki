@@ -16,4 +16,5 @@
 //= require bootstrap
 //= require typeahead_colla.js
 //= require stateselect.js
+//= require_tree .
 

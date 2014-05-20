@@ -6,17 +6,11 @@
         <li class="list-group-item">
           <%= link_to  wiki.title, wiki %>
           <small>
-            submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.user_name %>
+            submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.user_name %> 
           </small>
         </li>
       <% end %>
     </ul>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-4">
-    <div id="the-basics">
-      <input class="typeahead" type="text" placeholder="States of USA">
-    </div>
-  </div>
-</div>
+

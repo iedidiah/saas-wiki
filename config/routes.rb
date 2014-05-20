@@ -3,9 +3,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get 'api/usernames'
   resources :wikis
   resources :charges
   resources :users, only: [:show, :index, :create]
+  resources :collaborators
 
   root to: 'welcome#index'
 

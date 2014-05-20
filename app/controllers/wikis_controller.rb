@@ -7,13 +7,16 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
+    @creator = User.find(@wiki.user_id)
   end
 
   def new
   end
 
   def create
-    @wiki = current_user.wikis.build(post_params)
+    @wiki = Wiki.create(post_params)
+    @wiki.user_id = current_user.id
+    current_user.collaborators.create(wiki: @wiki)
     @user = User.find(@wiki.user_id)
     if @wiki.save
       flash[:notice] = "Your new Wiki has been created."
@@ -26,6 +29,7 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @collaborator = Collaborator.new(:wiki_id => @wiki.id)
   end
 
   def update

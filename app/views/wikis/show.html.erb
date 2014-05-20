@@ -10,7 +10,7 @@
         <%= @wiki.body %>
       </div>
       <div class="panel-footer">
-        submitted <%= time_ago_in_words(@wiki.created_at) %> ago by <%= @wiki.user.user_name %>
+        submitted <%= time_ago_in_words(@wiki.created_at) %> ago by <%= @creator.user_name %>
       </div>
     </div>
   </div>
