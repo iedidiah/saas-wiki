@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'User who is paying' do
  
   scenario 'should be able to create a paid for account', :js => true do
-    @u1 = create(:use)
+    @u1 = create(:user)
     visit '/'
     expect(page).to have_content('Sign In')
     click_link "Sign In"

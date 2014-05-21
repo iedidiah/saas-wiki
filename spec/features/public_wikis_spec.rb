@@ -1,11 +1,15 @@
 require 'spec_helper'
 
-feature 'public and non public wikis' do
+feature 'Wikis' do
 
-  scenario 'should be visible on the home page' do
+  scenario 'that are public should be visible on the home page' do
     @u1 = create(:user) do |user|
       user.wikis.create(attributes_for(:wiki))
+      user.wikis.first.update_attribute(:title, "First Wiki")
+      @wiki = user.wikis.first
+      @wiki.user_id = user.id
     end
+    @u1.collaborators.create(wiki: @wiki)
    
     visit '/'
     expect(page).to have_content("First Wiki")
@@ -13,7 +17,7 @@ feature 'public and non public wikis' do
     expect(page).to have_content('This is the first post that Admin is writing.')
   end
   
-  scenario 'should not be visible on the home page' do
+  scenario 'that are not public should not be visible on the home page' do
     @u1 = create(:user) do |user|
       user.wikis.create(attributes_for(:wiki))
     end

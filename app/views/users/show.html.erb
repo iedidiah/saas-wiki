@@ -30,10 +30,10 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<h1>My Wikis</h1>
+<h1><%= @title %></h1>
 <div class="row">
   <div class="col-md-8">
-    <%= render partial: "wikis/wikis", collection: @wikis, locals: {creator: @creator}  %>
+    <%= render partial: "wikis/wikis", collection: @wikis %>
   </div>
   
   <div class="col-md-4">

@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'api/usernames'
-  resources :wikis
+  resources :wikis 
   resources :charges
-  resources :users, only: [:show, :index, :create]
+  resources :users, only: [:show, :index, :create] do 
+   get '/shared' => 'users#shared', as: :shared
+  end 
   resources :collaborators
 
   root to: 'welcome#index'

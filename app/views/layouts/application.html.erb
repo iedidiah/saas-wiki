@@ -17,7 +17,8 @@
          <% end %>
       <% end %>
       <% if current_user %>
-        <li> <%= link_to "My Wikis", current_user %></li>
+        <li><%= link_to "My Wikis", current_user %></li>
+        <li><%= link_to "Shared Wikis", user_shared_path(current_user) %></li>
       <% end %>
       <div class="pull-right user-info">
         <% if current_user %>

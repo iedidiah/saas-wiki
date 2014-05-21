@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :collaborator do
-    user nil
-    wiki nil
+    user_id nil
+    wiki_id nil
   end
+
 end
