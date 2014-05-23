@@ -6,10 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @title = "My Wikis"
-    #this pulls all wikis that the user is a collaborator for
-    #@wikis = User.find(current_user.id).wikis.all
-    #this pulls only the wikis that the user is the creator of 
-    @wikis = User.find(current_user.id).wikis.where(user_id: current_user.id)
+    @wikis = current_user.created_wikis
     @new_wiki = Wiki.new
   end
 

@@ -3,14 +3,8 @@ require 'spec_helper'
 feature 'Wikis' do
 
   scenario 'that are public should be visible on the home page' do
-    @u1 = create(:user) do |user|
-      user.wikis.create(attributes_for(:wiki))
-      user.wikis.first.update_attribute(:title, "First Wiki")
-      @wiki = user.wikis.first
-      @wiki.user_id = user.id
-    end
-    @u1.collaborators.create(wiki: @wiki)
-   
+    @u1 = create(:user)
+    @wiki = create(:wiki, user: @u1, title: "First Wiki")
     visit '/'
     expect(page).to have_content("First Wiki")
     click_link('First Wiki')
@@ -70,12 +64,9 @@ feature 'Wikis' do
     expect(page).to have_content ('Your new Wiki has been created.')
     expect(page).to have_content ('Testing New Wiki')
   end
-  scenario 'should be editable' do
-    @u1 = create(:user) do |user|
-      user.wikis.create(attributes_for(:wiki))
-      user.wikis.first.update_attribute(:public, false)
-      user.wikis.first.update_attribute(:title, "Non-public Wiki")
-    end
+  scenario 'should be editable by it\'s creator.' do
+    @u1 = create(:user, paid: true)
+    @wiki = create(:wiki, user: @u1, title: "First Wiki")
     visit'/'
     expect(page).to have_content('Sign In')
     click_link "Sign In"

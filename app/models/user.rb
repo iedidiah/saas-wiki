@@ -5,8 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :collaborators
   has_many :wikis, through: :collaborators
+
+  has_many :created_wikis, class_name: "Wiki"
   
-  def collaborator
-    raise
-  end
 end

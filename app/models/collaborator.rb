@@ -2,6 +2,15 @@ class Collaborator < ActiveRecord::Base
   belongs_to :user
   belongs_to :wiki
 
+  validates :user_id, 
+            :presence => {:message => "does not exist."},
+            :uniqueness => {:scope => :wiki_id, :message => "already is a collaborator." }
+
+  validates :wiki_id, 
+            :presence => {:message => "does not exist."}
+
+  
+
   #defining getter method for the attribute created
   def user_name
     if self.user
@@ -11,7 +20,8 @@ class Collaborator < ActiveRecord::Base
 
   #setter method syntax for the attribute created
   def user_name=(value)
-    user = User.where(:user_name => value).first
-    self.user_id = user.id
+    if user = User.where(:user_name => value).first
+      self.user_id = user.id
+    end
   end
 end

@@ -1,14 +1,28 @@
 class CollaboratorsController < ApplicationController
   def create
    @collaborator = Collaborator.new(post_params)
-   if Collaborator.where(user_id: @collaborator.user_id, wiki_id: @collaborator.wiki_id).blank?
-      @collaborator.save
+   if @collaborator.save
       flash[:notice] = "Collaborator added"
       redirect_to edit_wiki_path(@collaborator.wiki)
    else
-     flash[:error] = "That user is already a collaborator on this Wiki."
+#     binding.pry
+     flash[:error] = ""
+     @collaborator.errors.full_messages.each do |msg|
+       flash[:error] += msg
+     end
      redirect_to edit_wiki_path(@collaborator.wiki)
    end
+  end
+
+  def destroy
+    @collaborator = Collaborator.find(params[:id])
+    if @collaborator.destroy
+      flash[:notice] = "You have removed #{@collaborator.user.user_name} as a collaborator from this Wiki" 
+      redirect_to edit_wiki_path(@collaborator.wiki) 
+    else
+      flash[:error] = "There was an error. Please try again"
+      redirect_to edit_wiki_path(@collaborator.wiki)
+    end
   end
 
   private

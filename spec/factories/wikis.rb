@@ -5,6 +5,6 @@ FactoryGirl.define do
     title "First Wiki"
     body "This is the first post that Admin is writing."
     public true
-    user_id nil
+    user
   end
 end

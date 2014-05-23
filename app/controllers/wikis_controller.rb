@@ -7,7 +7,6 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
-    @creator = User.find(@wiki.user_id)
   end
 
   def new
@@ -48,6 +47,7 @@ class WikisController < ApplicationController
     @wiki = current_user.wikis.find(params[:id])
     @user = User.find(@wiki.user_id)
     if @wiki.destroy
+      @collaborator = Collaborator.where(wiki_id: @wiki).destroy_all
       flash[:notice] = "You have deleted Wiki '#{@wiki.title}'."
       redirect_to @user
     else

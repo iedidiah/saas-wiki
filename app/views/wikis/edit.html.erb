@@ -28,7 +28,7 @@
     <h3>Collaborators</h3>
     <% @wiki.collaborators.each do |collaborator| %>
       <% if (collaborator.user_name != current_user.user_name) %>
-        <%= collaborator.user_name %>
+        <p><%= link_to check_box_tag(:collaborator), collaborator, method: :delete %> <%= collaborator.user_name %></p>
       <% end %>
     <% end %>
   </div>

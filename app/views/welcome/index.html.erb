@@ -6,7 +6,7 @@
         <li class="list-group-item">
           <%= link_to  wiki.title, wiki %>
           <small>
-            submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.user_name %> 
+            submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.creator.user_name %> 
           </small>
         </li>
       <% end %>

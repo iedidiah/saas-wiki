@@ -8,6 +8,8 @@ group :development, :test do
   gem 'capybara'
   gem 'faker'
   gem 'selenium-webdriver'
+  gem 'shoulda'
+  gem 'pry'
 end
 # Checkout with credit card
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
