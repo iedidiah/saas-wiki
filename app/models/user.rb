@@ -8,4 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :created_wikis, class_name: "Wiki"
   
+  def has_authority_to_delete_collaborators?
+    raise
+  end
 end

@@ -18,7 +18,9 @@ var usernames = new Bloodhound({
 });
  
 // kicks off the loading/processing of `local` and `prefetch`
+if ($('#the-basics .typeahead').length > 0){
 usernames.initialize();
+}
  
 // passing in `null` for the `options` arguments will result in the default
 // options being used

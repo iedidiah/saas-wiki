@@ -7,15 +7,19 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
+    if @wiki.accessible_by_current_user(current_user)
+      @wiki
+    else
+      redirect_to "/"
+    end
   end
 
   def new
   end
 
   def create
-    @wiki = Wiki.create(post_params)
+    @wiki = Wiki.new(post_params)
     @wiki.user_id = current_user.id
-    current_user.collaborators.create(wiki: @wiki)
     @user = User.find(@wiki.user_id)
     if @wiki.save
       flash[:notice] = "Your new Wiki has been created."
@@ -28,7 +32,11 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
-    @collaborator = Collaborator.new(:wiki_id => @wiki.id)
+    if @wiki.accessible_by_current_user(current_user)
+      @collaborator = Collaborator.new(:wiki_id => @wiki.id)
+    else
+      redirect_to '/'
+    end
   end
 
   def update
@@ -47,7 +55,6 @@ class WikisController < ApplicationController
     @wiki = current_user.wikis.find(params[:id])
     @user = User.find(@wiki.user_id)
     if @wiki.destroy
-      @collaborator = Collaborator.where(wiki_id: @wiki).destroy_all
       flash[:notice] = "You have deleted Wiki '#{@wiki.title}'."
       redirect_to @user
     else

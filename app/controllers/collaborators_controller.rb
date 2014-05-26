@@ -16,11 +16,17 @@ class CollaboratorsController < ApplicationController
 
   def destroy
     @collaborator = Collaborator.find(params[:id])
-    if @collaborator.destroy
-      flash[:notice] = "You have removed #{@collaborator.user.user_name} as a collaborator from this Wiki" 
-      redirect_to edit_wiki_path(@collaborator.wiki) 
-    else
-      flash[:error] = "There was an error. Please try again"
+    @wiki = @collaborator.wiki
+    if @wiki.deletable_by?(current_user)
+      if @collaborator.destroy
+        flash[:notice] = "You have removed #{@collaborator.user.user_name} as a collaborator from this Wiki" 
+        redirect_to edit_wiki_path(@collaborator.wiki) 
+      else
+        flash[:error] = "There was an error. Please try again"
+        redirect_to edit_wiki_path(@collaborator.wiki)
+      end
+    else 
+      flash[:error] = "Only the owner may delete collaborators."
       redirect_to edit_wiki_path(@collaborator.wiki)
     end
   end

@@ -14,12 +14,11 @@ feature 'User who is paying' do
     click_link 'Private Wikis'
     click_button 'Pay with Card'
     within_frame('stripe_checkout_app') do
-      expect(page).to have_content 'I want to create Private Wikis'
+      expect(page).to have_content 'Show me the $$'
       fill_in 'Email', with: 'admin@example.com'
       fill_in 'Card number', with: '4242424242424242'
       fill_in 'MM / YY', with: '12/20'
       fill_in 'CVC', with: '123'
-      save_and_open_page
       click_on 'Pay $5.00'
       find('.button.animated.success .tick').should be_visible
     end
@@ -27,8 +26,7 @@ feature 'User who is paying' do
   end
 
   scenario 'should not see the link Private Wikis' do
-    @u1 = create(:user)
-    @u1.update_attribute(:paid, true)
+    @u1 = create(:user, paid: true)
     visit '/'
     expect(page).to have_content('Sign In')
     click_link "Sign In"
@@ -54,12 +52,9 @@ feature 'User who is paying' do
   end
 
   scenario 'should be able to add collaborators to specific wikis' do 
-    @u1 = create(:user) do |user|
-      user.wikis.create(attributes_for(:wiki))
-      user.wikis.first.update_attribute(:public, false)
-      user.wikis.first.update_attribute(:title, "Non-public Wiki")
-    end
+    @u1 = create(:user, paid: true)  
     @u1.update_attribute(:paid, true)
+    @wiki = create(:wiki, creator: @u1, title: "Non-public Wiki", public: false)
     @u2 = create(:user)
     visit '/'
     expect(page).to have_content('Sign In')
@@ -73,7 +68,19 @@ feature 'User who is paying' do
     expect(page).to have_content("Non-public Wiki")
     click_link "Edit"
     expect(page).to have_content("Add collaborators to this Wiki")
-    fill_in "Collaborators", with: @u2.email
+    fill_in "Collaborator", with: @u2.user_name
+    click_button "Add"
+    expect(page).to have_content("Collaborator added")
+    expect(page).to have_content(@u2.user_name)
   end
 end
 
+feature "Private Wikis are" do
+  scenario "not viewable to non-collaborators" do
+    @u1 = create(:user, paid:true)
+    @wiki = create(:wiki, creator: @u1, title: "Non-public", public: false)
+    @u2 = create(:user) 
+    visit ("/wikis/#{@wiki.id}")
+    expect(page).to_not have_content("Non-public")
+  end
+end

@@ -24,4 +24,5 @@ class Collaborator < ActiveRecord::Base
       self.user_id = user.id
     end
   end
+  
 end
